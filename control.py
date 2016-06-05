@@ -5,8 +5,6 @@ from senser2 import *
 import threading
 import sys
 
-print("git test")
-
 event = threading.Event()
 
 def senser_func(port,string):
