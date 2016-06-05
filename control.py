@@ -8,7 +8,7 @@ import sys
 event = threading.Event()
 
 def senser_func(port,string):
-    print "collecting"
+    print ("collecting")
     sen=senser(port,string)
     sen.collect(event)
 
@@ -60,13 +60,13 @@ def getDist():
     a=getDecodedBytes(2,">h")
     return (d,a)
 
-port=raw_input("irobot port:")
-port2=raw_input("senser port:")
+port=input("irobot port:")
+port2=input("senser port:")
 string=None
 try:
     ser=serial.Serial(port,baudrate=115200,timeout=1)
 except:
-    print>>sys.stderr,"Can't open port:%s, exiting..."%port
+    print("Can't open port:%s, exiting..."%port,file=sys.stderr)
     sys.exit()
 angle0=0.0
 angle1=0.0
@@ -80,6 +80,7 @@ thread1=threading.Thread(target=senser_func,args=(port2,string,))
 thread1.start()
 time.sleep(1)
 
+
 for i in range(1):
     ser.write(struct.pack(">B",128))
     ser.write(struct.pack(">B",131))
@@ -89,6 +90,7 @@ for i in range(1):
     #(dist1,angle1)=getDist()
     #print "%d:d1=%f\na1=%f\n" %(i,dist1,angle1)
     spinDirectly(-1,60,6)
-time.sleep(1)
+    
+#time.sleep(1)
 event.set()
 ser.close()
