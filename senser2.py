@@ -5,32 +5,28 @@ import time
 import os
 import threading
 
-class senser:
-    ser=None
-    #Acceleration
-    ax=0
-    ay=0
-    az=0
-    #Angular Acceleration
-    wx=0
-    wy=0
-    wz=0
-    #Temperature
-    t=0
-    #Angle
-    dx=0
-    dy=0
-    dz=0
-    #system time
-    st=0
-    to=0
-    #
-    typ=0
-    lbuf=[]
-    fa=None     #record acceleration
-    fw=None     #record angular velocity
-    fd=None     #record angle
+class senser:   
     def __init__(self,port,string):
+        #Acceleration
+        self.ax=0
+        self.ay=0
+        self.az=0
+        #Angular Acceleration
+        self.wx=0
+        self.wy=0
+        self.wz=0
+        #Temperature
+        self.t=0
+        #Angle
+        self.dx=0
+        self.dy=0
+        self.dz=0
+        #system time
+        self.st=0
+        self.to=0
+        #
+        self.typ=0
+        self.lbuf=[]
         try:
             self.ser = serial.Serial(port,115200,timeout=1)
         except serial.SerialException:
@@ -50,9 +46,9 @@ class senser:
             os.mkdir(path)
         except:
             pass
-        self.fa=open("%s/Acceleration.txt"%path,'w+')
-        self.fw=open("%s/Angular Velocity.txt"%path,'w+')
-        self.fd=open("%s/Angle.txt"%path,'w+')
+        self.fa=open("%s/Acceleration.txt"%path,'w+')       #record acceleration
+        self.fw=open("%s/Angular Velocity.txt"%path,'w+')   #record angular velocity
+        self.fd=open("%s/Angle.txt"%path,'w+')              #record angle
 
         print("Time\tAx\tAy\tAz\tTemperature",file=self.fa)
         print("Time\tWx\tWy\tWz\tTemperature",file=self.fw)
